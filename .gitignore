@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 模型文件和大文件 (通常不建议上传到 Git)
+*.bin
+*.pth
+*.ckpt
+*.model
+*.h5
+*.pkl
+*.pickle
+
+# 数据文件 (较大的数据文件建议使用 Git LFS 或单独存储)
+*.tar.gz
+*.zip
+*.rar
+*.7z
+
+# 临时文件
+.DS_Store
+Thumbs.db
+.lock/
+
+# 环境配置
+.env
+.venv
+venv/
+env/
