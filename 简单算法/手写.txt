@@ -1,2 +1,262 @@
 
 选择排序
+# 核心思想：每次从未排序区域选择最小的元素放到已排序区域的末尾
+
+def swap(arr, i, j):
+    arr[i], arr[j] = arr[j], arr[i]
+
+def select_sort(arr):
+    length = len(arr)
+    for i in range(length - 1):
+        # 找到未排序区域中最小元素的索引
+        min_index = i
+        for j in range(i + 1, length):
+            if arr[min_index] > arr[j]:
+                min_index = j
+        
+        # 将最小元素交换到当前位置
+        if min_index != i:
+            swap(arr, min_index, i)
+    
+    return arr
+
+
+冒泡排序
+# 核心思想：相邻元素比较交换，每轮将最大元素"冒泡"到末尾
+
+def bubble_sort(arr):
+    length = len(arr)
+    for i in range(length - 1):
+        # 每轮将当前最大元素冒泡到末尾
+        for j in range(length - i - 1): 
+            if arr[j] > arr[j + 1]:
+                swap(arr, j, j + 1)
+    
+    return arr
+
+0123
+4321
+插入排序
+# 核心思想：将数组分为已排序和未排序两部分，每次从未排序部分取一个元素插入到已排序部分的正确位置
+
+def insert_sort(arr):
+    length = len(arr)
+    if length <= 1:
+        return arr
+    
+    for i in range(1, length):  # 从第二个元素开始
+        key = arr[i]  # 当前要插入的元素
+        j = i - 1     # 从已排序部分的末尾开始比较
+        
+        # 将比key大的元素都向后移动一位
+        while j >= 0 and arr[j] > key:
+            arr[j + 1] = arr[j]
+            j -= 1
+        
+        # 将key插入到正确位置
+        arr[j + 1] = key
+    
+    return arr
+        
+
+
+
+
+
+
+归并排序
+# 核心思想：分治策略，将数组分成两半，递归排序后合并
+
+def merge(arr1, arr2):
+    result = []
+    len1 = len(arr1)
+    len2 = len(arr2)
+    
+    i, j = 0, 0
+    while i < len1 and j < len2:
+        if arr1[i] <= arr2[j]:
+            result.append(arr1[i])
+            i += 1
+        else:
+            result.append(arr2[j])
+            j += 1
+    
+    # 处理剩余元素
+    while i < len1:
+        result.append(arr1[i])
+        i += 1
+    
+    while j < len2:
+        result.append(arr2[j])
+        j += 1
+    
+    return result
+
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    middle = len(arr) // 2
+    left_arr = arr[:middle]
+    right_arr = arr[middle:]
+    
+    sorted_left = merge_sort(left_arr)
+    sorted_right = merge_sort(right_arr)
+    
+    result = merge(sorted_left, sorted_right)
+    return result
+
+
+
+
+
+快速排序
+# 核心思想：选择一个基准值，将数组分为小于基准值和大于基准值的两部分，递归排序
+
+# 交换数组中两个元素的位置
+def swap(arr, i, j):
+    arr[i], arr[j] = arr[j], arr[i]
+
+# 选择基准值并分区（挖坑填数法）
+def find_pivot(arr, low, high):
+    pivot = arr[low]  # 选取左侧第一个作为基准值
+    
+    while low < high:
+        # 从右向左找第一个小于基准值的数
+        while low < high and arr[high] >= pivot:
+            high -= 1
+        arr[low] = arr[high]  # 填坑
+        
+        # 从左向右找第一个大于基准值的数
+        while low < high and arr[low] <= pivot:
+            low += 1
+        arr[high] = arr[low]  # 填坑
+    
+    arr[low] = pivot  # 基准值归位
+    return low
+
+# 快速排序主函数
+def fast_sort(arr, low, high):
+    if low < high:
+        pivot_index = find_pivot(arr, low, high)
+        
+        # 递归排序左半部分
+        fast_sort(arr, low, pivot_index - 1)
+        # 递归排序右半部分
+        fast_sort(arr, pivot_index + 1, high)
+    
+    return arr
+
+# 两个栈实现一个队列
+# 核心思想：一个栈用于入队，一个栈用于出队
+
+class Queue:
+    def __init__(self):
+        self.in_stack = []   # 入队栈
+        self.out_stack = []  # 出队栈
+    
+    def push(self, x: int) -> None:
+        """入队操作"""
+        self.in_stack.append(x)
+    
+    def pop(self) -> int:
+        """出队操作"""
+        if not self.out_stack:
+            # 如果出队栈为空，将入队栈的所有元素倒序放入出队栈
+            while self.in_stack:
+                self.out_stack.append(self.in_stack.pop())
+        
+        return self.out_stack.pop()
+
+    def peek(self) -> int:
+        """查看队首元素"""
+        if not self.out_stack:
+            # 如果出队栈为空，将入队栈的所有元素倒序放入出队栈
+            while self.in_stack:
+                self.out_stack.append(self.in_stack.pop())
+        
+        return self.out_stack[-1]
+
+    def is_empty(self) -> bool:
+        """判断队列是否为空"""
+        return len(self.in_stack) == 0 and len(self.out_stack) == 0
+
+# 反转链表
+# 核心思想：使用三个指针，逐个反转链表节点的指向
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+def reverse(head: ListNode) -> ListNode:
+    """反转链表"""
+    prev = None
+    curr = head
+    
+    while curr:
+        next_temp = curr.next  # 保存下一个节点
+        curr.next = prev       # 反转当前节点的指向
+        prev = curr            # 移动prev指针
+        curr = next_temp       # 移动curr指针
+    
+    return prev
+
+# 删除单链表的倒数第k个节点
+# 核心思想：使用双指针，快指针比慢指针提前k步
+
+def delete_reverse_kth(head: ListNode, k: int) -> ListNode:
+    """删除倒数第k个节点"""
+    # 创建虚拟头节点，简化边界情况处理
+    dummy = ListNode(0)
+    dummy.next = head
+    
+    fast = dummy
+    slow = dummy
+    
+    # 快指针先走k步
+    for _ in range(k):
+        fast = fast.next
+    
+    # 快慢指针同时移动，直到快指针到达末尾
+    while fast.next:
+        fast = fast.next
+        slow = slow.next
+    
+    # 删除倒数第k个节点
+    slow.next = slow.next.next
+    
+    return dummy.next ：
+        
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

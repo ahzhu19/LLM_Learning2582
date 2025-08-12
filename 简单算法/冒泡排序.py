@@ -16,3 +16,6 @@ if __name__ == "__main__":
     print("排序前：", arr)
     sorted_arr = bubble(arr)
     print("排序后：", sorted_arr)
+    # 测试时间
+    start_time = time.time()
+    
