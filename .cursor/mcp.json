@@ -1,0 +1,55 @@
+{
+    "mcpServers": {
+      "fetch": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "npx",
+          "-y",
+          "@kazuph/mcp-fetch",
+          "--config",
+          "{}"
+        ]
+      },
+      "thinking": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "npx",
+          "-y",
+          "@modelcontextprotocol/server-sequential-thinking",
+          "--config",
+          "{}"
+        ]
+      },
+      "files": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "npx",
+          "-y",
+          "@modelcontextprotocol/server-filesystem",
+          "C:/Users/Administrator/Downloads"
+        ]
+      },
+      "hotnews": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "npx",
+          "-y",
+          "@wopal/mcp-server-hotnews"
+        ]
+      },
+      "playwright": {
+        "command": "cmd",
+        "args": [
+          "/c",
+          "npx",
+          "-y",
+          "@executeautomation/playwright-mcp-server"
+        ]
+      }
+    }
+  }
+  
