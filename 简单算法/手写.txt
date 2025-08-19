@@ -227,9 +227,154 @@ def delete_reverse_kth(head: ListNode, k: int) -> ListNode:
     slow.next = slow.next.next
     
     return dummy.next ：
-        
+
+# 删除单链表中给定val值的所有节点
+1-3--3--4-5-2-4-4
+
+#两个指针，一个指针在val的前一个节点，另一个指针在便利完n个val节点的第一个非val节点。
+后指针便利完毕
+
+def delete_val(head: ListNode, val: int) -> ListNode:
+    # 创建虚拟头结点，简化边界处理
+    dummy = ListNode(0)
+    dummy.next = head
+    
+    i = dummy
+    while i.next is not None:
+        if i.next.val == val:
+            # 跳过所有连续的目标值节点
+            j = i.next
+            while j is not None and j.val == val:
+                j = j.next
+            i.next = j
+        else:
+            i = i.next
+    
+    return dummy.next
 
 
+
+# 使用链表实现栈和队列
+
+# 栈先进后出的特点
+
+class stack_list_node:
+    def __init__(self,head : ListNode)->ListNode:
+
+        self.head = head
+        self.tail = head
+    
+    # push 
+    def push(self,val):
+
+        node = ListNode(val)
+        node.next = None
+        self.tail.next = node
+        tail.next = node
+    # pop
+    def pop(self):
+        if tail 
+        tail.next = None
+
+
+
+# 判断链表是否有环
+快慢指针>快的走两步，慢的走一步。如果有环那么一定会相遇
+
+
+def is_circle(head:ListNode)->bool:
+    dummy = ListNode(0,head)
+    fast  = dummy
+    slow = dummy
+
+    while fast.next is not None and slow.next is not None:
+        fast = fast.next
+        if fast is not None:
+            fast = fast.next
+        slow = slow.next
+        if fast == value:
+            return True
+
+    return False
+
+
+# 如果链表有环，返回链表中环的起始节点.
+先到快慢节点相遇的位置。然后慢指针往后饶一周。记录计算环的长度。
+
+def return_start(head: ListNode) -> ListNode:
+    """
+    方法一：数学推导法（最优解）
+    时间复杂度：O(n)，空间复杂度：O(1)
+    """
+    if head is None or head.next is None:
+        return None
+    
+    # 第一步：找到快慢指针相遇点
+    slow = head
+    fast = head
+    
+    # 检测环是否存在
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            break
+    else:
+        return None  # 无环
+    
+    # 第二步：找环的起始节点
+    # 一个指针从头开始，一个从相遇点开始，同速前进
+    ptr1 = head
+    ptr2 = slow  # 相遇点
+    
+    while ptr1 != ptr2:
+        ptr1 = ptr1.next
+        ptr2 = ptr2.next
+    
+    return ptr1  # 环的起始节点
+
+
+def return_start_method2(head: ListNode) -> ListNode:
+    """
+    方法二：先计算环长度再定位
+    时间复杂度：O(n)，空间复杂度：O(1)
+    """
+    if head is None or head.next is None:
+        return None
+    
+    # 第一步：找到相遇点
+    slow = head
+    fast = head
+    
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow == fast:
+            break
+    else:
+        return None  # 无环
+    
+    # 第二步：计算环的长度
+    cycle_length = 1
+    current = slow.next
+    while current != slow:
+        current = current.next
+        cycle_length += 1
+    
+    # 第三步：定位环的起始节点
+    # 让一个指针先走 cycle_length 步
+    ptr1 = head
+    ptr2 = head
+    
+    for _ in range(cycle_length):
+        ptr2 = ptr2.next
+    
+    # 两个指针同时前进，相遇点就是环的起始节点
+    while ptr1 != ptr2:
+        ptr1 = ptr1.next
+        ptr2 = ptr2.next
+    
+    return ptr1
 
 
 
