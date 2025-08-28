@@ -379,11 +379,43 @@ def return_start_method2(head: ListNode) -> ListNode:
 
 
 
-
+# 实现一个带有取最小值min方法的栈，min方法返回当前栈中的最小值
+实现的栈将支持push，pop 和 min 操作，所有操作要求都在O(1)时间内完成。
+%0D%0A我们可以使用两个栈：一个用于存储所有元素，另一个用于存储当前最小值。
  
 
 
 
+
+# 删除无序链表中值重复出现的节点
+def delete_duplicate(head:ListNode)->ListNode:
+
+    # 定义一个哈希集合表示出现过的节点
+    seen = set()
+
+    dummy = ListNode(0,head)
+    prev = dummy
+    current = dummy.next
+
+    while current is not None:
+        # 如果当前节点在哈希集合中出现过。那么删除
+        if current.val in seen:
+            prev.next = current.next
+
+        
+        else:
+            seen.add(current.val)
+            prev = current  # 只有保留节点时才移动prev
+        current = current.next
+    
+    return dummy.next
+
+
+
+# 删除排序链表中的重复元素
+def delete_duplicate2(head:ListNode)->ListNode:
+
+    dummy = ListNode(0)
 
 
 
